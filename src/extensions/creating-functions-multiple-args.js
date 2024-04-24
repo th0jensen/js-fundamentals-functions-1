@@ -10,6 +10,10 @@
 //
 // TODO: write code below
 
+function upperLower(lower, upper) {
+  return [...Array(upper - lower + 1).keys()].map((i) => i + lower)
+}
+
 // 2. define a function that takes two arguments: a string and a number.
 // The function should return the same string but in upper case with exclamation
 // marks appended to the end. The number of exclamation marks should be
@@ -21,6 +25,15 @@
 // error, 10    | ERROR!!!!!!!!!!
 //
 // TODO: write code below
+
+function hawaiiEmergencyAlert(type, severity) {
+  let finishedString = type.toUpperCase()
+
+  for (i = 1; i <= Number(severity); i++) {
+    finishedString += '!'
+  }
+  return finishedString
+}
 
 // 3. define a function that takes two arguments: a string and a number.
 // The function should return the new time in 24hr time after adding the additional time in minutes.
@@ -34,9 +47,28 @@
 // '23:50', 30  | '00:20'
 // TODO: write code below
 
+function clockConverter(time, minutes) {
+  const [hoursString, minutesString] = time.split(':')
+  const timeHours = parseInt(hoursString)
+  const timeMinutes = parseInt(minutesString)
+  const totalMinutes = timeMinutes + minutes
+  const finalHours = Math.floor(
+    (timeHours + Math.floor(totalMinutes / 60)) % 24
+  )
+  const finalMinutes = totalMinutes % 60
+
+  let finalHoursStringed = finalHours.toString()
+
+  if (finalHoursStringed.charAt(0) === '0') {
+    finalHoursStringed += '0'
+  }
+
+  return `${finalHoursStringed}:${finalMinutes.toString().padStart(2, '0')}`
+}
+
 // TODO: change the exported value to be the name of the function you defined
 module.exports = {
-  a: undefined, // 1. change undefined to be the name of the function defined to create the range of numbers (the first todo)
-  b: undefined, // 2. change undefined to be the name of the function defined to return the string with exclamations (the second todo)
-  c: undefined // etc
+  a: upperLower, // 1. change undefined to be the name of the function defined to create the range of numbers (the first todo)
+  b: hawaiiEmergencyAlert, // 2. change undefined to be the name of the function defined to return the string with exclamations (the second todo)
+  c: clockConverter // etc
 }
